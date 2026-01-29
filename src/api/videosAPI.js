@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getMostPopular } from "../controllers/youtubeController.js";
+import { getMostPopular } from "../controllers/videosController.js";
 
 const router = express.Router();
 

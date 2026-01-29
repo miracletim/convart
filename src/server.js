@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import healthRoute from "./api/health.js";
-import youtubeRoutes from "./api/youtube.js";
+import healthAPI from "./api/healthAPI.js";
+import videosAPI from "./api/videosAPI.js";
 
 dotenv.config();
 
@@ -11,9 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/", healthRoute);
-app.use("/api/videos", youtubeRoutes);
+app.use("/health", healthAPI);
+app.use("/api/videos", videosAPI);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running`);
+app.use((req, res) => {
+  res.status(404).json({ Error: "Route Not Found" });
 });
+
+app.listen(process.env.PORT);

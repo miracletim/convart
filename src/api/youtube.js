@@ -4,6 +4,6 @@ import { getMostPopular } from "../controllers/youtubeController.js";
 
 const router = express.Router();
 
-router.post("/mostPopular", getMostPopular);
+router.get("/top", getMostPopular);
 
 export default router;

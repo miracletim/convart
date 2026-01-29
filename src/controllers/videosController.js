@@ -9,7 +9,7 @@ export async function getMostPopular(req, res) {
     .from("requestlogs")
     .insert({ route: req.path, region: req.query.regionCode });
 
-  const url = new URL(process.env.URL);
+  const url = new URL("https://www.googleapis.com/youtube/v3/videos");
 
   url.search = new URLSearchParams({
     part: process.env.PART,
@@ -18,10 +18,15 @@ export async function getMostPopular(req, res) {
     videoCategoryId: process.env.VIDEO_CATEGORY_ID,
     maxResults: process.env.MAX_RESULTS,
     key: process.env.YOUTUBE_API_KEY,
-  });
+  }).toString();
 
   const response = await fetch(url);
   const data = await response.json();
+
+  if (!response.ok || !Array.isArray(data.items)) {
+    console.error("YouTube error:", data);
+    return res.status(500).json(data);
+  }
 
   const videos = data.items.map((item) => ({
     id: item.id,

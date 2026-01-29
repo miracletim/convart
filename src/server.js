@@ -18,4 +18,4 @@ app.use((req, res) => {
   res.status(404).json({ Error: "Route Not Found" });
 });
 
-app.listen(process.env.PORT);
+export default app;

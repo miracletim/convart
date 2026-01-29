@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/health", healthAPI);
+app.get("/health", healthAPI);
 app.use("/api/videos", videosAPI);
 
 app.use((req, res) => {
